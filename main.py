@@ -3,20 +3,21 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
 import time
+import shutil
 import os
-import multiprocessing
+
 
 #path for chrome driver
-# chrome_path = "C:\\Users\\ARKAJIT\\linkedin\\chromedriver.exe"
+chrome_path = "C:\\Users\\ARKAJIT\\linkedin\\chromedriver.exe"
 
 #initializing web browser with headless to stop auto opening browser
 op = webdriver.ChromeOptions()
-op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 op.add_argument('--headless')
 op.add_argument('--no-sandbox')
 op.add_argument('--disable-dev-sh-usage')
-# browser = webdriver.Chrome(chrome_path, options=op)
-browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=op)
+browser = webdriver.Chrome(chrome_path, options=op)
+# browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=op)
 
 #function to scroll down the web page
 def scroller(browser):
@@ -66,14 +67,15 @@ def fetch_image_url(number):
 
 #saving the images
 def save_images(image_urls, search_string):
-    if os.path.isdir("./static/images/" + search_string):
-        pass
+    if os.path.isdir("./static/images/store_image/"):
+        shutil.rmtree("./static/images/store_image/")
+        os.makedirs("./static/images/store_image/" + search_string)
     else:
-        os.makedirs("./static/images/" + search_string)
+        os.makedirs("./static/images/store_image/" + search_string)
     for count, pics_url in enumerate(image_urls, 1):
         try:
             image_content = requests.get(pics_url).content
-            f = open(os.path.join("./static/images/" + search_string, str(count) + ".jpg"), 'wb')
+            f = open(os.path.join("./static/images/store_image/" + search_string, str(count) + ".jpg"), 'wb')
             f.write(image_content)
             f.close()
         except:
@@ -88,7 +90,6 @@ class image_scrapper:
             self.search_string + "&gs_l=img")
         scroller(browser)
         self.im = fetch_image_url(number_of_image)
-        p1 = multiprocessing.Process(target=fetch_image_url, args=(10,))
         save_images(self.im, self.search_string)
 
 
