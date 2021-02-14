@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 import time
 import os
+import multiprocessing
 
 #path for chrome driver
 # chrome_path = "C:\\Users\\ARKAJIT\\linkedin\\chromedriver.exe"
@@ -87,6 +88,7 @@ class image_scrapper:
             self.search_string + "&gs_l=img")
         scroller(browser)
         self.im = fetch_image_url(number_of_image)
+        p1 = multiprocessing.Process(target=fetch_image_url, args=(10,))
         save_images(self.im, self.search_string)
 
 
