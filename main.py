@@ -8,16 +8,16 @@ import os
 
 
 #path for chrome driver
-chrome_path = "C:\\Users\\ARKAJIT\\linkedin\\chromedriver.exe"
+# chrome_path = "C:\\Users\\ARKAJIT\\linkedin\\chromedriver.exe"
 
 #initializing web browser with headless to stop auto opening browser
 op = webdriver.ChromeOptions()
-# op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+op.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 op.add_argument('--headless')
 op.add_argument('--no-sandbox')
 op.add_argument('--disable-dev-sh-usage')
-browser = webdriver.Chrome(chrome_path, options=op)
-# browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=op)
+# browser = webdriver.Chrome(chrome_path, options=op)
+browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=op)
 
 #function to scroll down the web page
 def scroller(browser):
