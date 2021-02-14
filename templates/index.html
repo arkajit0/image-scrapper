@@ -2,23 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>IMAGES</title>
+    <title>Search Images</title>
 </head>
 <body>
     <div class="form">
-        <form action="/" method="post">
+        <form action="/search" method="post">
             <label for="image_name">Image Name</label>
         <input style="text-align: center" type="text" name="image_name" id="image_name">
             <br><br>
             <label for="number">Image Number</label>
         <input style="text-align: center" type="number" name="number" id="number" min="1" max="2">
-            <input value="Show" type="submit">
+            <input value="search" type="submit">
         </form>
     </div>
-<section class="row">
-    {% for pic in pics %}
-        <img src='./static/images/store_image/{{folder}}/{{pic}}'/>
-    {% endfor %}
-</section>
 </body>
 </html>
